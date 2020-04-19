@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>capacitacion-operation demo</title>
+  <script src="../build/webcomponents-loader.js"></script>
+  <script src="../build/scoping-shim.min.js"></script>
+  <script src="../build/apply-shim.min.js"></script>
+  <script src="../build/custom-style-interface.min.js"></script>
+  <script>
+    {
+      const _customElementsDefine = window.customElements.define;
+      window.customElements.define = (name, cl, conf) => {
+        if (customElements.get(name)) {
+          console.warn(`${name} has been defined twice`);
+        } else {
+          _customElementsDefine.call(window.customElements, name, cl, conf);
+        }
+      };
+    }
+  </script>
+  <script>
+    window.I18nMsg = window.I18nMsg || {};
+    window.I18nMsg.url = '../locales/';
+  </script>
+  <script defer src="../build/component.js"></script>
+  <script type="module" crossorigin="use-credentials">
+    import '../build/demo-build.js';
+  </script>
+</head>
+
+<body>
+  <cells-demo-helper resolution="tablet">
+    <cells-demo-case heading="Eventos" description="Trabajando con eventos">
+      <template>
+
+        <b>variables</b>
+        <div class="box" style="text-align: center;">
+          <input type="number" placeholder="Variable 'X'" id="numX" /> <input type="number" placeholder="Variable 'Y'"
+            id="numY" />
+        </div>
+
+        <div class="box" style="text-align: center;">
+          <button data-operation="+">Sumar</button>
+          <button data-operation="-">Restar</button>
+          <button data-operation="*">Multiplicar</button>
+          <button data-operation="/">Dividir</button>
+          <button data-operation="all">Todos</button>
+        </div>
+
+        <b>Suma</b>
+        <div class="box">
+          <capacitacion-operation operation="+" x="10" y="5"></capacitacion-operation>
+        </div>
+
+        <b>Resta</b>
+        <div class="box">
+          <capacitacion-operation operation="-" x="200.5" y="10.25"></capacitacion-operation>
+        </div>
+
+        <b>Multiplicación</b>
+        <div class="box">
+          <capacitacion-operation operation="*" x="10" y="-10"></capacitacion-operation>
+        </div>
+
+        <b>División</b>
+        <div class="box">
+          <capacitacion-operation operation="/" x="10" y="100"></capacitacion-operation>
+        </div>
+
+      </template>
+    </cells-demo-case>
+  </cells-demo-helper>
+</body>
+
+</html>
