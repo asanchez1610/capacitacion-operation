@@ -36,9 +36,26 @@ export class CapacitacionOperation extends LitElement {
   constructor() {
     super();
     this.proccessOperation();
+    window.addEventListener('run-operations', (e) => {
+      console.log(e)
+      this.runOperationEvent(e.detail);
+    });
   }
 
-
+  runOperationEvent(config) {
+    debugger;
+    if(config.operation === this.operation) {
+        this.x = config.x || 0;
+        this.y = config.y || 0;
+        this.requestUpdate();
+        this.proccessOperation();
+    } else if(config.operation === 'all') {
+      this.x = config.x || 0;
+      this.y = config.y || 0;
+      this.requestUpdate();
+      this.proccessOperation();
+    }
+  }
 
   async proccessOperation() {
     await this.completeUpdate;

@@ -70,6 +70,33 @@
           <capacitacion-operation operation="/" x="10" y="100"></capacitacion-operation>
         </div>
 
+        <script>
+
+          let callEvent = (config) => {
+            const callEvent = new CustomEvent('run-operations', {
+                                detail: config,
+                                bubbles: true,
+                                composed: true
+                  });
+            window.dispatchEvent(callEvent);
+          }
+
+          document.addEventListener('WebComponentsReady', () => {
+            document.querySelectorAll('button').forEach((element) => {
+                element.addEventListener('click', (e)=> {
+
+                  let config = {
+                    x: document.querySelector('#numX').value,
+                    y: document.querySelector('#numY').value,
+                    operation: element.dataset.operation
+                  };
+                  callEvent(config);
+                });
+            });
+          });
+
+        </script>
+
       </template>
     </cells-demo-case>
   </cells-demo-helper>
