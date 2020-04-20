@@ -37,9 +37,9 @@ export class CapacitacionOperation extends LitElement {
     super();
     this.proccessOperation();
     window.addEventListener('run-operations', (e) => {
-      console.log(e)
       this.runOperationEvent(e.detail);
     });
+
   }
 
   runOperationEvent(config) {
@@ -87,6 +87,19 @@ export class CapacitacionOperation extends LitElement {
     }
     this.result = r;
     this.requestUpdate();
+
+    const event = new CustomEvent('final-calculator', {
+      detail: { data: {
+              x: this.x,
+              y: this.y,
+              result: this.result
+      } },
+      bubbles: true,
+      composed: true
+    });
+
+    this.dispatchEvent(event);
+
   }
 
   static get shadyStyles() {
